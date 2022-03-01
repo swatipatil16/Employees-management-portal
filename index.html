@@ -1,0 +1,238 @@
+<html>
+    <head>
+        <title>
+            Employee details
+        </title>
+        <meta charset="window-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <style>
+
+            .center{
+                text-align: center;
+            }
+            .container{
+                overflow:hidden
+                width:1000px;
+                height: 600px;
+                background-image: url(img.jpg);
+                margin:30px auto;
+                
+            }
+            
+            .tab-1{
+                flex:50%;
+                
+                
+                padding:10px;
+                height:300px;
+               
+               /* margin-left:200px;
+                
+                margin-left: auto;
+                margin-right: auto;*/
+                
+            }
+            .tab{
+                /*float:left;
+            
+                margin-left: 200px;
+                margin-right: auto;*/
+               display:flex;
+                    
+            }
+
+            /*.tab-2{
+                float:left;
+                width:50%;
+                padding:10px;
+                height:300px;
+
+
+                margin-left:400px;
+                margin-left: auto;
+                margin-right: auto;}*/
+            
+
+            .tab-1 input{
+                margin-left: auto;
+                margin-right: auto;
+                display:block; 
+                margin-bottom: 10px;}
+
+
+            tr{transition:all .25s ease-in-out}
+            tr:hover{background-color: darkcyan;}
+
+        </style>
+    
+    
+    </head>
+    <body>
+
+        <h1 class="center">Employee Detials</h1>
+
+        <div class="container">
+            <div class="tab">
+            <div class=" tab-1">
+                <table id="table" border="1">
+                    <tr>
+                        <th>Eid</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Designation</th>
+                        <th>Age</th>
+                        <th>Salary</th>
+                    </tr>
+
+                </table>
+            </div>
+            <div class=" tab-1">
+                Employee Id:<input type="number" name="eid" id="eid">
+                First Name:<input type="text" name="fname" id="fname">
+                Last Name:<input type="text" name="lname" id="lname">
+                Designation:<input type="text" name="desig" id="desig">
+                Age:<input type="number" name="age" id="age">
+                Salary:<input type="number" name="salary" id="salary">
+
+                <button onclick="addHtmlTableRow();">ADD</button>
+                <button onclick="editselectedrow();">EDIT</button>
+                <button onclick="removeSelectedRow();">DELETE</button>
+
+            </div>
+            </div>
+        </div>
+
+        <script>
+             var rIndex,
+             table=document.getElementById("table");
+
+                function checkEmptyInput()
+                {
+                    var isEmpty=false,
+                    eid=document.getElementById("eid").value,
+                    fname=document.getElementById("fname").value,
+                    lname=document.getElementById("lname").value,
+                    desig=document.getElementById("desig").value,
+                    age=document.getElementById("age").value,
+                    salary=document.getElementById("salary").value;
+
+                    if(eid===""){
+                    alert("Employee Id can not be Empty");
+                    isEmpty=true;
+                    }
+                    if(fname==="")
+                    {
+                    alert("First Name can not be Empty");
+                    isEmpty=true;
+                    }
+                    
+                    if(lname==="")
+                    {
+                    alert("Last Name can not be Empty");
+                    isEmpty=true;
+                    }
+                    
+                    if(desig==="")
+                    {
+                    alert("Designation can not be Empty");
+                    isEmpty=true;
+                    }
+                   
+                    if(age==="")
+                    {
+                    alert("Age can not be Empty");
+                    isEmpty=true;
+                    }
+                    
+                    if(salary==="")
+                    {
+                    alert("Salary can not be Empty");
+                    isEmpty=true;
+                    }
+                   return isEmpty;
+            
+                    
+                }
+
+
+
+                function addHtmlTableRow()
+                {
+                    //var table= document.getElementById("table"),
+
+                    if(!checkEmptyInput())
+                    {
+                    var newRow=table.insertRow(table.length),
+                    cell1=newRow.insertCell(0),
+                    cell2=newRow.insertCell(1),
+                    cell3=newRow.insertCell(2),
+                    cell4=newRow.insertCell(3),
+                    cell5=newRow.insertCell(4),
+                    cell6=newRow.insertCell(5),
+
+                    eid=document.getElementById("eid").value,
+                    fname=document.getElementById("fname").value,
+                    lname=document.getElementById("lname").value,
+                    desig=document.getElementById("desig").value,
+                    age=document.getElementById("age").value,
+                    salary=document.getElementById("salary").value;
+
+                    cell1.innerHTML=eid;
+                    cell2.innerHTML=fname;
+                    cell3.innerHTML=lname;
+                    cell4.innerHTML=desig;
+                    cell5.innerHTML=age;
+                    cell6.innerHTML=salary;
+
+                    selectedRowToInput();
+                    } 
+                }
+
+                function selectedRowToInput()
+                {
+                    //var rIndex,table=document.getElementById("table");
+                    for(var i=1;i<table.rows.length;i++)
+                    {
+                        table.rows[i].onclick=function()
+                        {
+                            rIndex=this.rowIndex;
+                            //console.log(rIndex);
+                            document.getElementById("eid").value=this.cells[0].innerHTML;
+                            document.getElementById("fname").value=this.cells[1].innerHTML;
+                            document.getElementById("lname").value=this.cells[2].innerHTML;
+                            document.getElementById("desig").value=this.cells[3].innerHTML;
+                            document.getElementById("age").value=this.cells[4].innerHTML;
+                            document.getElementById("salary").value=this.cells[5].innerHTML;
+                        };  
+                    }
+                }
+                selectedRowToInput();
+
+                function editselectedrow()
+                {
+                    
+                    var eid=document.getElementById("eid").value;
+                    var fname=document.getElementById("fname").value;
+                    var lname=document.getElementById("lname").value;
+                    var desig=document.getElementById("desig").value;
+                    var age=document.getElementById("age").value;
+                    var salary=document.getElementById("salary").value;
+                    table.rows[rIndex].cells[0].innerHTML=eid;
+                    table.rows[rIndex].cells[1].innerHTML=fname;
+                    table.rows[rIndex].cells[2].innerHTML=lname;
+                    table.rows[rIndex].cells[3].innerHTML=desig;
+                     table.rows[rIndex].cells[4].innerHTML=age;
+                    table.rows[rIndex].cells[5].innerHTML=salary;
+
+                }
+                function removeSelectedRow()
+                {
+                    table.deleteRow(rIndex);
+                }
+
+        </script>
+
+
+    </body>
+</html>
